@@ -8,7 +8,8 @@ We need to create an .env file with some custom configuration. You can find an e
 
 ```
 ENVIRONMENT=                          Name of the environment can be development, staging or production
-PORT=                                 The port setting determines which TCP port Scientilla will use to listen for incoming requests
+SAILS_PORT=                           The port setting determines which TCP port Scientilla will use to listen for incoming requests
+DB_PORT=                              The port setting determines which TCP port postgres will use to listen for connections from the Scientilla application
 GIT_BRANCH=                           Name of the branch that will be used (only for production or staging)
 SCIENTILLA_VOLUME=                    Relative path to the Scientilla code folder starting from this project folder (only for development)
 
