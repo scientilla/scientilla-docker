@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    build:
+      dockerfile: docker/web/production/Dockerfile
+      args:
+      - GIT_BRANCH=${GIT_BRANCH}
+    volumes:
+      - ./backups:/usr/src/scientilla/backups
+    environment:
+      NODE_ENV: development
+    command: sails lift

@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build:
+      dockerfile: ./docker/web/development/Dockerfile
+    volumes:
+    - ${SCIENTILLA_VOLUME}:/usr/src/scientilla
+    - node_modules:/usr/src/scientilla/node_modules
+    - bower_components:/usr/src/scientilla/bower_components
+    ports:
+    - "5858:5858"
+    - "35732:35732"
+    environment:
+      NODE_ENV: development
+    command: /bin/sh /usr/src/scripts/development.sh
+  db:
+    ports:
+    - "5433:5432"
+
+volumes:
+  node_modules:
+  bower_components:

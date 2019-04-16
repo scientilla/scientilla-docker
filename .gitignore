@@ -1,0 +1,11 @@
+.idea/
+.env
+scientilla/
+docker/db/database_structure.sql
+docker/web/production/scientilla.js
+
+backups/*
+!backups/.gitkeep
+!backups/plain
+backups/plain/*
+!backups/plain/.gitkeep
