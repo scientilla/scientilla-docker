@@ -11,6 +11,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositori
 
 ARG GIT_BRANCH
 
+ADD https://api.github.com/repos/scientilla/scientilla/git/refs/heads/${GIT_BRANCH} version.json
+
 RUN git clone https://github.com/scientilla/scientilla.git scientilla
 
 WORKDIR /usr/src/scientilla/
