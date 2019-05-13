@@ -4,4 +4,4 @@ yarn install --prefer-offline
 
 bower install --allow-root
 
-sails lift
+node ./node_modules/sails/bin/sails.js lift

@@ -35,7 +35,6 @@ RUN yarn global add bower
 
 RUN bower install --allow-root
 
-RUN yarn global add sails
 RUN yarn global add grunt
 RUN yarn global add grunt-cli
 

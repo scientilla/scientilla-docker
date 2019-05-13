@@ -10,4 +10,4 @@ services:
       - ./backups:/usr/src/scientilla/backups
     environment:
       NODE_ENV: development
-    command: sails lift
+    command: node ./node_modules/sails/bin/sails.js lift
