@@ -42,6 +42,4 @@ RUN yarn add mocha@5.2.0
 
 RUN yarn add should@11.2.1
 
-COPY docker/web/scientilla.js ./config/
-
 EXPOSE 1337
