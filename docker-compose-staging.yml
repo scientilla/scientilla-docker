@@ -3,11 +3,12 @@ version: '3'
 services:
   web:
     build:
-      dockerfile: docker/web/production/Dockerfile
+      dockerfile: docker/web/staging/Dockerfile
       args:
-      - GIT_BRANCH=${GIT_BRANCH}
+      - NAME=${NAME}
+      - TAG=${TAG}
     volumes:
       - ./backups:/usr/src/scientilla/backups
     environment:
       NODE_ENV: development
-    command: npm run installer
+    command: node ./node_modules/sails/bin/sails.js lift

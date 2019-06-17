@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  base_web:
+    build:
+      context: .
+      dockerfile: ./docker/web/development/Dockerfile
+    volumes:
+    - ${SCIENTILLA_VOLUME}:/usr/src/scientilla
+    environment:
+      NODE_ENV: development
+  testweb:
+    extends: base_web
+    depends_on:
+    - db-test
+  npm:
+    extends: base_web
+    entrypoint: npm
+  bower:
+    extends: base_web
+    entrypoint: bower
+  mocha:
+    extends: base_web
+    entrypoint: mocha
+  grunt:
+    extends: base_web
+    entrypoint: grunt
+  db-test:
+    image: postgres:10
+    ports:
+    - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_DB: scientillatest
+      POSTGRES_USER: scientilla
+      POSTGRES_PASSWORD: scientillapassword

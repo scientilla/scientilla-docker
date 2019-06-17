@@ -3,25 +3,24 @@ FROM node:9-alpine
 WORKDIR /usr/src/
 
 RUN apk update && \
- apk add --no-cache git make gcc g++ python bash nano
+ apk add --no-cache git make gcc g++ python bash
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
  apk update && \
  apk add --no-cache postgresql-client
 
-ARG GIT_BRANCH
+ARG NAME
+ARG TAG
 
-ADD https://api.github.com/repos/scientilla/scientilla/git/refs/heads/${GIT_BRANCH} version.json
+RUN echo ${TAG} > version.json
 
-RUN git clone https://github.com/scientilla/scientilla.git scientilla
+RUN git clone https://gitlab.iit.it/data-analysis/scientilla.git scientilla
 
 WORKDIR /usr/src/scientilla/
 
-RUN git fetch origin ${GIT_BRANCH}
+RUN git fetch origin ${NAME}
 
-RUN git checkout ${GIT_BRANCH}
-
-COPY docker/web/scientilla.js ./config/
+RUN git checkout ${TAG}
 
 RUN cp views/layout.ejs.dist views/layout.ejs
 
@@ -36,6 +35,13 @@ RUN yarn global add bower
 RUN bower install --allow-root
 
 RUN yarn global add grunt
+
 RUN yarn global add grunt-cli
+
+RUN yarn add mocha@5.2.0
+
+RUN yarn add should@11.2.1
+
+COPY docker/web/scientilla.js ./config/
 
 EXPOSE 1337

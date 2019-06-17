@@ -29,7 +29,20 @@ Please complete the basic Scientilla configuration by copying scientilla/config/
 
 **For staging or production:**
 
-Please complete the basic Scientilla configuration by copying scientilla/config/scientilla.js.example to scientilla-docker/docker/web/production/scientilla.js and personalize the settings. 
+Please complete the basic Scientilla configuration by copying scientilla/config/scientilla.js.example to scientilla-docker/docker/web/scientilla.js and personalize the settings. 
+
+
+## Scientilla environments
+We created seperate docker-compose configurations for each of our environments. Development, staging and production.
+
+### Development
+During development we will use our local scientilla code. Therefor you need to fill in the "SCIENTILLA_VOLUME=" path into our .env file.
+
+### Staging
+We use Gitlab CI/CD to deploy the different branches to our staging machine automatically when we push to Gitlab. First we test our application, when this is successful we create an image of our application an push it to our local registry inside Gitlab. This image will than be used during deployment on staging.
+
+### Production
+At this moment we don't use Gitlab CI/CD yet for our production environment. We clone the master branch of scientilla repository and start the application.
 
 
 ## Scientilla docker commands

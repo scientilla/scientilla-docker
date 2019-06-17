@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 source .env
 
@@ -10,8 +11,13 @@ case $1 in
                 docker-compose -f docker-compose.yml -f docker-compose-development.yml up -d --build
             ;;
 
-            staging|production)
-                echo "Starting Scientilla in $ENVIRONMENT mode ..."
+            staging)
+                echo "Starting Scientilla in staging mode ..."
+                docker-compose -f docker-compose.yml -f docker-compose-staging.yml up -d --build
+            ;;
+
+            production)
+                echo "Starting Scientilla in production mode ..."
                 docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d --build
             ;;
         esac
@@ -35,6 +41,25 @@ case $1 in
     logs)
         echo "Showing the logs of the web service..."
         docker-compose logs -f web
+    ;;
+
+    test)
+        case "$ENVIRONMENT" in
+            development)
+                echo "Starting Scientilla testing in development mode ..."
+                docker-compose -f docker-compose-testing-development.yml up -d db-test
+                docker-compose -f docker-compose-testing-development.yml logs -f db-test > docker/db-test/logs &
+                sleep 1
+                docker-compose -f docker-compose-testing-development.yml run --rm npm test
+                docker-compose -f docker-compose-testing-development.yml stop db-test
+                docker-compose -f docker-compose-testing-development.yml rm -f db-test
+            ;;
+
+            *)
+                echo "Testing only configured for development ..."
+                echo $"Usage: $1 {development}"
+            ;;
+        esac
     ;;
 
     backup)
