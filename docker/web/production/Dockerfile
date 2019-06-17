@@ -3,7 +3,7 @@ FROM node:9-alpine
 WORKDIR /usr/src/
 
 RUN apk update && \
- apk add --no-cache git make gcc g++ python bash nano
+ apk add --no-cache git make gcc g++ python bash
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
  apk update && \
