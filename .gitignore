@@ -2,10 +2,14 @@
 .env
 scientilla/
 docker/db/database_structure.sql
-docker/web/production/scientilla.js
+docker/web/config/scientilla.js
+docker/web/config/local.js
 
-backups/*
-!backups/.gitkeep
-!backups/plain
-backups/plain/*
-!backups/plain/.gitkeep
+docker/web/installer/uploads/*
+!docker/web/installer/uploads/.gitkeep
+
+docker/web/backups/*
+!docker/web/backups/.gitkeep
+!docker/web/backups/plain
+docker/web/backups/plain/*
+!docker/web/backups/plain/.gitkeep

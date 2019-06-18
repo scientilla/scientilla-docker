@@ -5,6 +5,27 @@ services:
     build:
       context: .
     restart: always
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT}
+      NAME: ${NAME}
+      PORT_INSTALLER: ${SAILS_PORT}
+      URL_INSTALLER: ${URL_SCIENTILLA}
+      PORT_SCIENTILLA: ${SAILS_PORT}
+      URL_SCIENTILLA: ${URL_SCIENTILLA}
+      ALLOWED_IP: ${ALLOWED_IP}
+      OPEN_BROWSER: ${OPEN_BROWSER}
+      FORCE_INSTALLER: ${FORCE_INSTALLER}
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DB_PORT}
+      DATABASE_NAME: ${POSTGRES_DB}
+    volumes:
+    - ./backups:/usr/src/scientilla/backups
+    - ./docker/web/installer/uploads:/usr/src/scientilla/installer/uploads
+    - ${PWD}/docker/web/config/scientilla.js:/usr/src/scientilla/config/scientilla.js
+    - ${PWD}/docker/web/config/local.js:/usr/src/scientilla/config/local.js
+    - ${PWD}/docker/web/config/customizations.js:/usr/src/scientilla/config/customizations.js
     ports:
     - "${SAILS_PORT}:1337"
     depends_on:

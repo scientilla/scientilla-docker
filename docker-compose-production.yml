@@ -3,11 +3,9 @@ version: '3'
 services:
   web:
     build:
-      dockerfile: docker/web/production/Dockerfile
-      args:
-      - GIT_BRANCH=${GIT_BRANCH}
-    volumes:
-      - ./backups:/usr/src/scientilla/backups
+      dockerfile: ./docker/web/production/Dockerfile
+    #image: 'gitlab.iit.it:4567/data-analysis/scientilla:${NAME}'
     environment:
       NODE_ENV: development
-    command: node ./node_modules/sails/bin/sails.js lift
+    #command: npm run installer
+    command: /bin/sh /usr/src/scripts/production.sh

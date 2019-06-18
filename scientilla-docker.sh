@@ -12,42 +12,111 @@ case $1 in
 
             staging|production)
                 echo "Starting Scientilla in $ENVIRONMENT mode ..."
-                docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d --build
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml build --no-cache --build-arg NAME=$NAME web
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d
             ;;
         esac
     ;;
 
     stop)
         echo "Stopping Scientilla ..."
-        docker-compose stop
+
+        case "$ENVIRONMENT" in
+            development)
+                docker-compose -f docker-compose.yml -f docker-compose-development.yml stop
+            ;;
+
+            staging|production)
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml stop
+            ;;
+        esac
     ;;
 
     restart)
         echo "Restarting web service of Scientilla ..."
-        docker-compose restart web
+
+        case "$ENVIRONMENT" in
+            development)
+                docker-compose -f docker-compose.yml -f docker-compose-development.yml restart web
+            ;;
+
+            staging|production)
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml restart web
+            ;;
+        esac
     ;;
 
     down)
         echo "Stopping Scientilla and removing containers, networks, volumes, and images..."
-        docker-compose down
+
+        case "$ENVIRONMENT" in
+            development)
+                docker-compose -f docker-compose.yml -f docker-compose-development.yml down
+            ;;
+
+            staging|production)
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml down
+            ;;
+        esac
     ;;
 
     logs)
         echo "Showing the logs of the web service..."
-        docker-compose logs -f web
+
+        case "$ENVIRONMENT" in
+            development)
+                docker-compose -f docker-compose.yml -f docker-compose-development.yml logs -f web
+            ;;
+
+            staging|production)
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml logs -f web
+            ;;
+        esac
+    ;;
+
+    bash)
+        echo "Showing the logs of the web service..."
+
+        case "$ENVIRONMENT" in
+            development)
+                docker-compose -f docker-compose.yml -f docker-compose-development.yml exec web /bin/sh
+            ;;
+
+            staging|production)
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml exec web /bin/sh
+            ;;
+        esac
     ;;
 
     backup)
         case "$2" in
             create)
                 echo "Creating backup..."
-                docker-compose exec web grunt backup:create:$3
+
+                case "$ENVIRONMENT" in
+                    development)
+                        docker-compose -f docker-compose.yml -f docker-compose-development.yml exec web grunt backup:create:$3
+                    ;;
+
+                    staging|production)
+                        docker-compose -f docker-compose.yml -f docker-compose-production.yml exec web grunt backup:create:$3
+                    ;;
+                esac
             ;;
 
             restore)
                 echo "Restoring backup..."
                 path=$3
-                docker-compose exec web grunt backup:restore:${path##*/}
+
+                case "$ENVIRONMENT" in
+                    development)
+                        docker-compose -f docker-compose.yml -f docker-compose-development.yml exec web grunt backup:restore:${path##*/}
+                    ;;
+
+                    staging|production)
+                        docker-compose -f docker-compose.yml -f docker-compose-production.yml exec web grunt backup:restore:${path##*/}
+                    ;;
+                esac
             ;;
 
             *)
@@ -59,6 +128,6 @@ case $1 in
 
     *)
         echo "Command not found ..."
-        echo $"Usage: $1 {start|stop|restart|down|logs|backup}"
+        echo $"Usage: $1 {start|stop|restart|down|logs|bash|backup}"
     ;;
 esac
