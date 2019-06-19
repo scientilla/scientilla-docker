@@ -15,4 +15,3 @@ docker/web/backups/plain/*
 !docker/web/backups/plain/.gitkeep
 
 docker/db/data/*
-!docker/db/data/.gitkeep
