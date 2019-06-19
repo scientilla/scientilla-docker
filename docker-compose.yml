@@ -2,8 +2,7 @@ version: '3'
 
 services:
   web:
-    build:
-      context: .
+    image: ${IMAGE_REPOSITORY}
     restart: always
     environment:
       ENVIRONMENT: ${ENVIRONMENT}
@@ -31,12 +30,10 @@ services:
     depends_on:
     - db
   db:
-    build:
-      context: ./docker/db
-      dockerfile: Dockerfile
+    image: postgres:10
     restart: always
     volumes:
-    - scientillapgdata:/var/lib/postgresql/data
+    - ./docker/db/data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

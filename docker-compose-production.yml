@@ -6,4 +6,3 @@ services:
       dockerfile: ./docker/web/production/Dockerfile
     environment:
       NODE_ENV: development
-    command: /bin/sh /usr/src/scripts/production.sh
