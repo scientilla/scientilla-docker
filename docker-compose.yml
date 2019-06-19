@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       ENVIRONMENT: ${ENVIRONMENT}
-      NAME: ${NAME}
+      IMAGE_REPOSITORY: ${IMAGE_REPOSITORY}
       PORT_INSTALLER: ${SAILS_PORT}
       URL_INSTALLER: ${URL_SCIENTILLA}
       PORT_SCIENTILLA: ${SAILS_PORT}

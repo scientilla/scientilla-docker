@@ -12,7 +12,7 @@ case $1 in
 
             staging|production)
                 echo "Starting Scientilla in $ENVIRONMENT mode ..."
-                docker-compose -f docker-compose.yml -f docker-compose-production.yml build --no-cache --build-arg NAME=$NAME web
+                docker-compose -f docker-compose.yml -f docker-compose-production.yml build --no-cache --build-arg IMAGE_REPOSITORY=$IMAGE_REPOSITORY web
                 docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d
             ;;
         esac

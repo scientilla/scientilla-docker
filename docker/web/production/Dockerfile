@@ -1,5 +1,5 @@
-ARG NAME
+ARG IMAGE_REPOSITORY
 
-FROM gitlab.iit.it:4567/data-analysis/scientilla:$NAME
+FROM $IMAGE_REPOSITORY
 
 COPY docker/web/production/scripts/production.sh /usr/src/scripts/

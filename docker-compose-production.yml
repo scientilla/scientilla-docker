@@ -4,8 +4,6 @@ services:
   web:
     build:
       dockerfile: ./docker/web/production/Dockerfile
-    #image: 'gitlab.iit.it:4567/data-analysis/scientilla:${NAME}'
     environment:
       NODE_ENV: development
-    #command: npm run installer
     command: /bin/sh /usr/src/scripts/production.sh
