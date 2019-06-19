@@ -4,3 +4,4 @@ services:
   web:
     environment:
       NODE_ENV: development
+    command: ${FORCE_INSTALLER}
