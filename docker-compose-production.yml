@@ -2,7 +2,5 @@ version: '3'
 
 services:
   web:
-    build:
-      dockerfile: ./docker/web/production/Dockerfile
     environment:
       NODE_ENV: development
