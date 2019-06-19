@@ -79,7 +79,7 @@ case $1 in
     ;;
 
     bash)
-        echo "Showing the logs of the web service..."
+        echo "Starting bash inside the web service..."
 
         case "$ENVIRONMENT" in
             development)
