@@ -2,23 +2,19 @@ version: '3'
 
 services:
   web:
-    image: ${IMAGE_REPOSITORY}
+    image: ${DOCKER_IMAGE}
     restart: always
     environment:
       ENVIRONMENT: ${ENVIRONMENT}
-      IMAGE_REPOSITORY: ${IMAGE_REPOSITORY}
-      PORT_INSTALLER: ${SAILS_PORT}
-      URL_INSTALLER: ${URL_SCIENTILLA}
-      PORT_SCIENTILLA: ${SAILS_PORT}
-      URL_SCIENTILLA: ${URL_SCIENTILLA}
-      ALLOWED_IP: ${ALLOWED_IP}
-      OPEN_BROWSER: ${OPEN_BROWSER}
-      FORCE_INSTALLER: ${FORCE_INSTALLER}
-      DATABASE_USER: ${POSTGRES_USER}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      WEB_APPLICATION_PORT: ${WEB_APPLICATION_PORT}
+      WEB_APPLICATION_URL: ${WEB_APPLICATION_URL}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DB_PORT}
-      DATABASE_NAME: ${POSTGRES_DB}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      ALLOWED_IP: ${ALLOWED_IP}
+      FORCE_INSTALLER: ${FORCE_INSTALLER}
     volumes:
     - ./backups:/usr/src/scientilla/backups
     - ./docker/web/installer/uploads:/usr/src/scientilla/installer/uploads
@@ -26,7 +22,7 @@ services:
     - ${PWD}/docker/web/config/local.js:/usr/src/scientilla/config/local.js
     - ${PWD}/docker/web/config/customizations.js:/usr/src/scientilla/config/customizations.js
     ports:
-    - "${SAILS_PORT}:1337"
+    - "${WEB_APPLICATION_PORT}:1337"
     depends_on:
     - db
   db:
@@ -35,11 +31,11 @@ services:
     volumes:
     - ./docker/db/data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-    - "${DB_PORT}:5432"
+    - "${DATABASE_PORT}:5432"
 
 volumes:
   scientillapgdata:

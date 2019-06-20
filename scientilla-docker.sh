@@ -11,7 +11,7 @@ case $1 in
         case "$ENVIRONMENT" in
             development)
                 echo "Starting Scientilla in development mode ..."
-                docker-compose -f docker-compose.yml -f docker-compose-development.yml up -d --build
+                docker-compose -f docker-compose.yml -f docker-compose-development.yml up -d
             ;;
 
             staging|production)

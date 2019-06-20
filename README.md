@@ -8,29 +8,26 @@ We need to create an .env file with some custom configuration. You can find an e
 
 ```
 ENVIRONMENT=                          Name of the environment can be development, staging or production
-SAILS_PORT=                           The port setting determines which TCP port Scientilla will use to listen for incoming requests
-DB_PORT=                              The port setting determines which TCP port postgres will use to listen for connections from the Scientilla application
-GIT_BRANCH=                           Name of the branch that will be used (only for production or staging)
+WEB_APPLICATION_PORT=                 The port setting determines which TCP port will used to listen for incoming requests
+WEB_APPLICATION_URL=                  The url determines the location of the application
+
+DATABASE_HOST=                        Database host
+DATABASE_PORT=                        Database port
+DATABASE_NAME=                        Database name
+DATABASE_USER=                        Database user
+DATABASE_PASSWORD=                    Database password
+
+FORCE_INSTALLER=                      (true or false) Force showing the installer even the application is ready to start
+ALLOWED_IP=                           Make the installer only available from a specific IP
+
 SCIENTILLA_VOLUME=                    Relative path to the Scientilla code folder starting from this project folder (only for development)
 
-POSTGRES_DB=                          Database name
-POSTGRES_USER=                        Username
-POSTGRES_PASSWORD=                    Password
+DOCKER_IMAGE=                         Location of the docker image that will be used in production
+
 ```
 
-## Create database_structure.sql
-
-When the volume of the database is empty the database will be created based on the **database_structure.sql** file inside the docker/db folder. Therefor you will have to provide this file. This file is been added to the .gitignore file.
-
 ## Scientilla configuration
-**For development:**
-
-Please complete the basic Scientilla configuration by copying scientilla/config/scientilla.js.example to scientilla/config/scientilla.js and personalize the settings. 
-
-**For staging or production:**
-
-Please complete the basic Scientilla configuration by copying scientilla/config/scientilla.js.example to scientilla-docker/docker/web/production/scientilla.js and personalize the settings. 
-
+Please complete the scientilla configuration with the installer.
 
 ## Scientilla docker commands
 

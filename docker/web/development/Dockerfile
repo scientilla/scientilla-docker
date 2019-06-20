@@ -2,8 +2,6 @@ FROM node:9-alpine
 
 WORKDIR /usr/src/scientilla
 
-COPY docker/web/development/scripts/development.sh /usr/src/scripts/
-
 RUN apk update && \
  apk add --no-cache git make gcc g++ python
 

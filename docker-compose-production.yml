@@ -4,4 +4,12 @@ services:
   web:
     environment:
       NODE_ENV: development
-    command: ${FORCE_INSTALLER}
+    command:
+    - sh
+    - -c
+    - |
+      if [ "$FORCE_INSTALLER" == "true" ]; then
+          npm run installer force
+      else
+          npm run installer
+      fi

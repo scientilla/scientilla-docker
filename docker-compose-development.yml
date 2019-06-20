@@ -14,7 +14,17 @@ services:
     - "35732:35732"
     environment:
       NODE_ENV: development
-    command: /bin/sh /usr/src/scripts/development.sh
+    command:
+    - sh
+    - -c
+    - |
+      yarn install --prefer-offline
+      bower install --allow-root
+      if [ "$FORCE_INSTALLER" == "true" ]; then
+          npm run installer force
+      else
+          npm run installer
+      fi
 
 volumes:
   node_modules:
