@@ -5,6 +5,7 @@ source .env
 touch docker/web/config/local.js
 touch docker/web/config/scientilla.js
 touch docker/web/config/customizations.js
+touch docker/web/config/connectors.js
 
 case $1 in
     start)
