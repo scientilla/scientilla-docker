@@ -131,8 +131,27 @@ case $1 in
         esac
     ;;
 
+    test)
+        case "$ENVIRONMENT" in
+            development)
+                echo "Starting Scientilla testing in development mode ..."
+                docker-compose -f docker-compose-testing-development.yml up -d db-test
+                docker-compose -f docker-compose-testing-development.yml logs -f db-test > docker/db-test/logs &
+                sleep 1
+                docker-compose -f docker-compose-testing-development.yml run --rm web-test
+                docker-compose -f docker-compose-testing-development.yml stop db-test
+                docker-compose -f docker-compose-testing-development.yml rm -f db-test
+            ;;
+
+            *)
+                echo "Testing only configured for development ..."
+                echo $"Usage: $1 {development}"
+            ;;
+        esac
+    ;;
+
     *)
         echo "Command not found ..."
-        echo $"Usage: $1 {start|stop|restart|down|logs|bash|backup}"
+        echo $"Usage: $1 {start|stop|restart|down|logs|bash|backup|test}"
     ;;
 esac
