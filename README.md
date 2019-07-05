@@ -64,10 +64,10 @@ Show all the logs of the web service
 ### Backup
 Create a backup of the database by using the following command. The postfix will be added to the filename.
 ```
-./scientilla-docker.sh backup:create:POSTFIX
+./scientilla-docker.sh backup create POSTFIX
 ```
 
 Restore the database with a backup by using the following command. The file should be available inside the backups folder.
 ```
-./scientilla-docker.sh backup:restore:dump.sql
+./scientilla-docker.sh backup restore dump.sql
 ```
