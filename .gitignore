@@ -11,3 +11,6 @@ docker/web/backups/*
 !docker/web/backups/.gitkeep
 
 docker/db/data
+
+docker/db-test/*
+!docker/db-test/.gitkeep

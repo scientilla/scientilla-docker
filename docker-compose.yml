@@ -21,6 +21,7 @@ services:
     - ${PWD}/docker/web/config/scientilla.js:/usr/src/scientilla/config/scientilla.js
     - ${PWD}/docker/web/config/local.js:/usr/src/scientilla/config/local.js
     - ${PWD}/docker/web/config/customizations.js:/usr/src/scientilla/config/customizations.js
+    - ${PWD}/docker/web/config/connectors.js:/usr/src/scientilla/config/connectors.js
     ports:
     - "${WEB_APPLICATION_PORT}:1337"
     depends_on:
