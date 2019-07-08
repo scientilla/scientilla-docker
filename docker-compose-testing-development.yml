@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web-test:
+    build:
+      context: .
+      dockerfile: ./docker/web/development/testing/Dockerfile
+    command: bash -c "npm test"
+    volumes:
+    - ${SCIENTILLA_VOLUME}:/usr/src/scientilla
+    - ${PWD}/docker/web/config/scientilla.js:/usr/src/scientilla/config/scientilla.js
+    - ${PWD}/docker/web/config/local.js:/usr/src/scientilla/config/local.js
+    - ${PWD}/docker/web/config/customizations.js:/usr/src/scientilla/config/customizations.js
+    - ${PWD}/docker/web/config/connectors.js:/usr/src/scientilla/config/connectors.js
+    - node_modules:/usr/src/scientilla/node_modules
+    - bower_components:/usr/src/scientilla/bower_components
+  db-test:
+    image: postgres:10
+    ports:
+    - "5434:5432"
+    environment:
+      POSTGRES_DB: scientillatest
+      POSTGRES_USER: scientilla
+      POSTGRES_PASSWORD: scientillapassword
+
+volumes:
+  node_modules:
+  bower_components:
