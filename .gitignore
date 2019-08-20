@@ -9,8 +9,12 @@ docker/web/installer/uploads/*
 
 docker/web/backups/*
 !docker/web/backups/.gitkeep
+!docker/web/backups/automatic
+docker/web/backups/automatic/*
+!docker/web/backups/automatic/.gitkeep
 
-docker/db/data
+docker/db/*
+!docker/db/.gitkeep
 
 docker/db-test/*
 !docker/db-test/.gitkeep
