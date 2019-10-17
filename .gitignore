@@ -4,8 +4,8 @@ scientilla/
 docker/web/config/*
 !docker/web/config/.gitkeep
 
-docker/web/metrics/*
-!docker/web/metrics/.gitkeep
+docker/web/metrics_import/*
+!docker/web/metrics_import/.gitkeep
 
 docker/web/logs/*
 !docker/web/logs/.gitkeep
