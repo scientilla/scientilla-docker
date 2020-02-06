@@ -19,6 +19,12 @@ docker/web/backups/*
 docker/web/backups/automatic/*
 !docker/web/backups/automatic/.gitkeep
 
+docker/web/profile/*
+!docker/web/profile/.gitkeep
+!docker/web/profile/images
+docker/web/profile/images/*
+!docker/web/profile/images/.gitkeep
+
 docker/db/*
 !docker/db/.gitkeep
 
