@@ -44,7 +44,7 @@ case $1 in
     ;;
 
     down)
-        echo "Stopping Scientilla and removing containers, networks, volumes, and images..."
+        echo "Stopping Scientilla and removing containers and networks..."
         "${DOCKER_COMPOSE[@]}" down
     ;;
 
