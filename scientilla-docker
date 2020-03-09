@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+source .env
+
+touch docker/web/config/local.js
+touch docker/web/config/scientilla.js
+touch docker/web/config/customizations.js
+touch docker/web/config/connectors.js
+
+case "$ENVIRONMENT" in
+    development|production)
+        DOCKER_COMPOSE=(docker-compose -f docker-compose.yml -f "docker-compose-${ENVIRONMENT}.yml")
+    ;;
+
+    staging)
+        DOCKER_COMPOSE=(docker-compose -f docker-compose.yml -f docker-compose-production.yml)
+    ;;
+esac
+
+case $1 in
+    start)
+        case "$ENVIRONMENT" in
+            development)
+                echo "Starting Scientilla in development mode ..."
+                "${DOCKER_COMPOSE[@]}" up -d
+            ;;
+
+            staging|production)
+                echo "Starting Scientilla in $ENVIRONMENT mode ..."
+                "${DOCKER_COMPOSE[@]}" pull
+                "${DOCKER_COMPOSE[@]}" up -d
+            ;;
+        esac
+    ;;
+
+    stop)
+        echo "Stopping Scientilla ..."
+        "${DOCKER_COMPOSE[@]}" stop
+    ;;
+
+    restart)
+        echo "Restarting web service of Scientilla ..."
+        "${DOCKER_COMPOSE[@]}" restart web
+    ;;
+
+    down)
+        echo "Stopping Scientilla and removing containers, networks, volumes, and images..."
+        "${DOCKER_COMPOSE[@]}" down
+    ;;
+
+    logs)
+        echo "Showing the logs of the web service..."
+        "${DOCKER_COMPOSE[@]}" logs -f web
+    ;;
+
+    bash)
+        echo "Starting bash inside the web service..."
+        "${DOCKER_COMPOSE[@]}" exec web /bin/sh
+    ;;
+
+    npm|yarn)
+        echo "${DOCKER_COMPOSE} run --rm web $@"
+        "${DOCKER_COMPOSE[@]}" run --rm web $@
+    ;;
+
+    backup)
+        case "$2" in
+            create)
+                echo "Creating backup..."
+                "${DOCKER_COMPOSE[@]}" exec web grunt backup:create:$3
+            ;;
+
+            restore)
+                echo "Restoring backup..."
+                path=$3
+                "${DOCKER_COMPOSE[@]}" exec web grunt backup:restore:${path##*/}
+            ;;
+
+            *)
+                echo "Command not found ..."
+                echo $"Usage: $2 {create|restore}"
+            ;;
+        esac
+    ;;
+
+    test)
+        case "$ENVIRONMENT" in
+            development)
+                echo "Starting Scientilla testing in development mode ..."
+                DOCKER_COMPOSE=(docker-compose -f docker-compose-testing-development.yml)
+                "${DOCKER_COMPOSE[@]}" up -d db-test
+                "${DOCKER_COMPOSE[@]}" logs -f db-test > docker/db-test/logs &
+                sleep 1
+                "${DOCKER_COMPOSE[@]}" run --rm web-test
+                "${DOCKER_COMPOSE[@]}" stop db-test
+                "${DOCKER_COMPOSE[@]}" rm -f db-test
+            ;;
+
+            *)
+                echo "Testing only configured for development ..."
+                echo $"Usage: $1 {development}"
+            ;;
+        esac
+    ;;
+
+    *)
+        echo "Command not found ..."
+        echo $"Usage: $1 {start|stop|restart|down|logs|bash|npm|backup|test}"
+    ;;
+esac
