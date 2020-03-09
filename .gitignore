@@ -12,6 +12,8 @@ docker/web/backups/*
 !docker/web/backups/automatic
 docker/web/backups/automatic/*
 !docker/web/backups/automatic/.gitkeep
+docker/web/certs/*
+!docker/web/certs/.gitkeep
 
 docker/db/*
 !docker/db/.gitkeep
