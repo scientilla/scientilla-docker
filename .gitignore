@@ -7,6 +7,9 @@ docker/web/config/*
 docker/web/metrics_import/*
 !docker/web/metrics_import/.gitkeep
 
+docker/web/user_compare/*
+!docker/web/user_compare/.gitkeep
+
 docker/web/logs/*
 !docker/web/logs/.gitkeep
 

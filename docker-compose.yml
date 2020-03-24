@@ -21,6 +21,7 @@ services:
     - ./docker/web/metrics_import:/usr/src/scientilla/metrics_import
     - ./docker/web/logs:/usr/src/scientilla/logs
     - ./docker/web/profile:/usr/src/scientilla/profile
+    - ./docker/web/user_compare:/usr/src/scientilla/user_compare
     - ${PWD}/docker/web/config/scientilla.js:/usr/src/scientilla/config/scientilla.js
     - ${PWD}/docker/web/config/local.js:/usr/src/scientilla/config/local.js
     - ${PWD}/docker/web/config/customizations.js:/usr/src/scientilla/config/customizations.js
