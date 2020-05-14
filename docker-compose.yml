@@ -16,6 +16,8 @@ services:
       ALLOWED_IP: ${ALLOWED_IP}
       FORCE_INSTALLER: ${FORCE_INSTALLER}
     volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
     - ./docker/web/backups:/usr/src/scientilla/backups
     - ./docker/web/installer/uploads:/usr/src/scientilla/installer/uploads
     - ./docker/web/metrics_import:/usr/src/scientilla/metrics_import
