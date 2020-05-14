@@ -58,9 +58,14 @@ case $1 in
         "${DOCKER_COMPOSE[@]}" exec web /bin/sh
     ;;
 
-    npm|yarn)
+    npm)
         echo "${DOCKER_COMPOSE} run --rm web $@"
         "${DOCKER_COMPOSE[@]}" run --rm web $@
+    ;;
+
+    bower)
+        echo "${DOCKER_COMPOSE} run --rm web $@ --allow-root"
+        "${DOCKER_COMPOSE[@]}" run --rm web $@ --allow-root
     ;;
 
     backup)
@@ -105,6 +110,6 @@ case $1 in
 
     *)
         echo "Command not found ..."
-        echo $"Usage: $1 {start|stop|restart|down|logs|bash|npm|backup|test}"
+        echo $"Usage: $1 {start|stop|restart|down|logs|bash|npm|bower|backup|test}"
     ;;
 esac
