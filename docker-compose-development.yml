@@ -18,6 +18,7 @@ services:
     - sh
     - -c
     - |
+      ./installer/wait-for-postgres.sh
       if [ "$FORCE_INSTALLER" == "true" ]; then
           npm run installer force
       else
