@@ -4,6 +4,10 @@ scientilla/
 docker/web/config/*
 !docker/web/config/.gitkeep
 
+.DS_Store
+docker/.DS_Store
+docker/web/.DS_Store
+
 docker/web/metrics_import/*
 !docker/web/metrics_import/.gitkeep
 
